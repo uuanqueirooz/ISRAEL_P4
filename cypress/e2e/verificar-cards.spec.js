@@ -22,7 +22,7 @@ describe('Verificação da Página de QA', () => {
       'Passo 1: Entenda os Fundamentos',
       'Passo 2: Aprenda Conceitos Chave',
       'Passo 3: Domine as Ferramentas',
-      'Passo 4: Desenvolv**a** Soft Skills', // GARANTIR QUE ESTÁ COM 'a'
+      'Passo 4: Desenvolva Soft Skills', // GARANTIR QUE ESTÁ COM 'a'
       'Passo 5: Lógica e SQL',
       'Passo 6: Pratique!'
     ];
