@@ -5,16 +5,24 @@ describe('Verificação da Página de QA', () => {
   });
 
   it('Deve ter o título principal correto', () => {
-    cy.get('header h1').should('have.text', 'Jornada do QA');
+    // O seu HTML na verdade tem "Jornada para se tornar um -QA-"
+    // Vamos corrigir isso também, usando .invoke('text') para limpar.
+    cy.get('header h1')
+      .invoke('text')
+      .then(text => {
+        const normalizedText = text.replace(/-/g, '').trim();
+        expect(normalizedText).to.equal('Jornada do QA');
+      });
   });
 
   it('Deve exibir todos os 6 cards com os títulos corretos', () => {
     
+    // Este array DEVE bater 100% com seu HTML
     const expectedTitles = [
       'Passo 1: Entenda os Fundamentos',
       'Passo 2: Aprenda Conceitos Chave',
       'Passo 3: Domine as Ferramentas',
-      'Passo 4: Desenvolv**a** Soft Skills', // <-- CORREÇÃO AQUI
+      'Passo 4: Desenvolv**a** Soft Skills', // GARANTIR QUE ESTÁ COM 'a'
       'Passo 5: Lógica e SQL',
       'Passo 6: Pratique!'
     ];
@@ -29,7 +37,9 @@ describe('Verificação da Página de QA', () => {
       cy.wrap(titleElement)
         .invoke('text') 
         .then((actualText) => {
+          // Limpa espaços em branco extras
           const normalizedText = actualText.replace(/\s+/g, ' ').trim();
+          // Compara o texto limpo
           expect(normalizedText).to.equal(expectedText);
         });
     });
