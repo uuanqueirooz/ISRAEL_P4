@@ -1,0 +1,32 @@
+name: CI - Cypress tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start static server
+        # inicia servidor simples em background na porta 8080
+        run: npx http-server . -p 8080 -c-1 &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:8080
+
+      - name: Run Cypress tests
+        run: npx cypress run --config baseUrl=http://localhost:8080
