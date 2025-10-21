@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornada para se tornar um QA</title>
+    <style>
+        /* 1. Configurações Globais (Inspirado no tema escuro) */
+        @import url('https_//fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --cor-fundo: #0f0f1a;
+            --cor-card: #1c1c2b;
+            --cor-borda: #3a3a5a;
+            --cor-texto-principal: #e0e0e0;
+            --cor-texto-secundario: #a0a0b0;
+            --cor-destaque: #00bfff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto-principal);
+            padding: 40px;
+            /* Efeito de fundo com gradiente sutil */
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 191, 255, 0.1), transparent 30%),
+                              radial-gradient(circle at 80% 90%, rgba(80, 0, 255, 0.1), transparent 30%);
+        }
+
+        /* 2. Cabeçalho */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cor-destaque);
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--cor-texto-secundario);
+            font-weight: 300;
+        }
+
+        /* 3. O Container dos "Cards" (Painéis) */
+        .container-passos {
+            display: grid;
+            /* Cria colunas responsivas */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 4. Estilo do Card (Inspirado nos painéis do vídeo) */
+        .card {
+            background-color: var(--cor-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            
+            /* Animação */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.5s ease-out forwards;
+            
+            /* Efeito de hover sutil */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 191, 255, 0.2);
+            border-color: var(--cor-destaque);
+        }
+
+        /* Adiciona um atraso na animação de cada card */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cor-destaque);
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: var(--cor-texto-secundario);
+            line-height: 1.6;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .card li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: var(--cor-texto-secundario);
+        }
+
+        .card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--cor-destaque);
+            font-weight: bold;
+        }
+
+        /* 5. Animação Keyframe */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Jornada do QA</h1>
+        <p>Passos Iniciais para se tornar um Quality Assurance</p>
+    </header>
+
+    <main class="container-passos">
+
+        <div class="card">
+            <h2>Passo 1: Entenda os Fundamentos</h2>
+            <p>
+                QA não é apenas "encontrar bugs". É garantir que o produto atenda aos requisitos e 
+                ofereça uma boa experiência ao usuário.
+            </p>
+            <ul>
+                <li>O que é Qualidade de Software?</li>
+                <li>Ciclo de Vida de Desenvolvimento (SDLC)</li>
+                <li>Ciclo de Vida de Teste (STLC)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Passo 2: Aprenda Conceitos Chave</h2>
+            <p>
+                Você precisa falar a "língua" do QA. Estes são os documentos e ideias centrais 
+                do seu dia a dia.
+            </p>
+            <ul>
+                <li>Plano de Teste (Test Plan)</li>
+                <li>Caso de Teste (Test Case)</li>
+                <li>Relatório de Bug (Bug Report)</li>
+                <li>Tipos de Teste (Funcional, Regressão, Fumaça)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Passo 3: Domine as Ferramentas</h2>
+            <p>
+                Nenhum QA trabalha sem ferramentas. Elas organizam seu trabalho e automatizam tarefas.
+            </p>
+            <ul>
+                <li><strong>Jira:</strong> Para gerenciamento de bugs e tarefas.</li>
+                <li><strong>Postman:</strong> Para testar APIs (essencial hoje em dia).</li>
+                <li><strong>Selenium ou Cypress:</strong> Para automação de testes web.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Passo 4: Desenvolva Soft Skills</h2>
+            <p>
+                Ser um bom QA exige mais do que conhecimento técnico. Você será a ponte entre 
+                desenvolvedores e o negócio.
+            </p>
+            <ul>
+                <li>Atenção obsessiva aos detalhes</li>
+                <li>Comunicação clara e objetiva</li>
+                <li>Pensamento crítico e analítico</li>
+                <li>Curiosidade e empatia pelo usuário</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>Passo 5: Lógica e SQL</h2>
+            <p>
+                Você precisará entender como os dados funcionam. Lógica de programação
+                é a base para a automação e SQL é vital para verificar bancos de dados.
+            </p>
+            <ul>
+                <li>Lógica de Programação (qualquer linguagem)</li>
+                <li>Comandos SQL básicos (SELECT, WHERE, JOIN)</li>
+                <li>Entender como APIs (JSON) funcionam</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Passo 6: Pratique!</h2>
+            <p>
+                Comece a testar. Encontre sites ou apps e tente "quebrá-los" de forma estruturada.
+                Documente os bugs que encontrar como se estivesse em um trabalho real.
+            </p>
+            <ul>
+                <li>Crie um portfólio de testes</li>
+                <li>Participe de programas de "Bug Bounty"</li>
+                <li>Contribua com projetos Open Source</li>
+            </ul>
+        </div>
+
+        <!--<div class="card">
+            <h2>Bônus: Recursos Adicionais</h2>
+            <p>
+                Aqui estão alguns recursos para aprofundar seu conhecimento em QA.
+            </p>
+            <ul>
+                <li><a href="https://www.ministryoftesting.com/" target="_blank" style="color: var(--cor-destaque); text-decoration: none;">Ministry of Testing</a></li>
+                <li><a href="https://www.softwaretestinghelp.com/" target="_blank" style="color: var(--cor-destaque); text-decoration: none;">Software Testing Help</a></li>
+                <li><a href="https://www.udemy.com/topic/software-testing/" target="_blank" style="color: var(--cor-destaque); text-decoration: none;">Cursos de Teste de Software na Udemy</a></li>
+            </ul>
+
+        <div/>-->
+
+    </main>
+
+</body>
+</html>
