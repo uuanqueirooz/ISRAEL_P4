@@ -1,8 +1,6 @@
 describe('Verificação da Página de QA', () => {
 
   beforeEach(() => {
-    // 1. Visita o seu arquivo HTML local
-    // (O Cypress vai procurar o 'exercicio.html' na raiz do seu projeto)
     cy.visit('exercicio.html');
   });
 
@@ -12,26 +10,37 @@ describe('Verificação da Página de QA', () => {
 
   it('Deve exibir todos os 6 cards com os títulos corretos', () => {
     
-    // 2. Define os títulos que esperamos encontrar
     const expectedTitles = [
       'Passo 1: Entenda os Fundamentos',
       'Passo 2: Aprenda Conceitos Chave',
       'Passo 3: Domine as Ferramentas',
-      'Passo 4: Desenvolve Soft Skills',
+      'Passo 4: Desenvolve Soft Skills', // O teste falhou aqui
       'Passo 5: Lógica e SQL',
       'Passo 6: Pratique!'
     ];
 
-    // 3. Pega todos os 'h2' que estão dentro de um '.card'
     cy.get('.card h2').as('cardTitles');
-
-    // 4. Verifica se a quantidade está correta (6)
     cy.get('@cardTitles').should('have.length', 6);
 
-    // 5. Faz um loop e verifica o texto de cada título
+    // --- INÍCIO DA CORREÇÃO ---
+    // Em vez de 'should('have.text')', vamos pegar o texto,
+    // normalizá-lo e então comparar.
+    
     cy.get('@cardTitles').each((titleElement, index) => {
-      cy.wrap(titleElement).should('have.text', expectedTitles[index]);
+      
+      const expectedText = expectedTitles[index];
+
+      cy.wrap(titleElement)
+        .invoke('text') // Pega o texto do elemento (ex: "  Olá  \n ")
+        .then((actualText) => {
+          // Normaliza o texto: remove espaços/quebras de linha extras
+          const normalizedText = actualText.replace(/\s+/g, ' ').trim();
+          
+          // Compara o texto limpo
+          expect(normalizedText).to.equal(expectedText);
+        });
     });
+    // --- FIM DA CORREÇÃO ---
   });
 
 });
