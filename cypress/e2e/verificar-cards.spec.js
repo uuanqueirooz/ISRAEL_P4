@@ -24,7 +24,8 @@ describe('Verificação da Página de QA', () => {
       'Passo 3: Domine as Ferramentas',
       'Passo 4: Desenvolva Soft Skills', // Corrigido para "Desenvolva" com "a"
       'Passo 5: Lógica e SQL',
-      'Passo 6: Pratique!'
+      'Passo 6: Pratique!',
+      'Bônus: Recursos Adicionais' // Título do novo card
     ];
 
     cy.get('.card h2').as('cardTitles');
