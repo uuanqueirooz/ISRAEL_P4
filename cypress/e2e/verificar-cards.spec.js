@@ -30,7 +30,7 @@ describe('Verificação da Página de QA', () => {
     cy.get('.card h2').as('cardTitles');
     
     // Procura por 6 cards, já que o bônus está comentado no HTML
-    cy.get('@cardTitles').should('have.length', 6);
+    cy.get('@cardTitles').should('have.length', 7);
 
     cy.get('@cardTitles').each((titleElement, index) => {
       
