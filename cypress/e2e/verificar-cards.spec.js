@@ -48,8 +48,8 @@ describe('Verificação da Página de QA', () => {
   });
 
 
-  /*
-  // ---- NOVO TESTE (COMENTADO) ----
+  
+   ---- NOVO TESTE (COMENTADO) ----
   // Este teste verifica especificamente os links do novo card.
   // Para usá-lo, descomente este bloco e o card no 'exercicio.html'.
   
@@ -84,6 +84,6 @@ describe('Verificação da Página de QA', () => {
       .and('have.attr', 'href', 'https_//www.udemy.com/topic/software-testing/')
       .and('have.attr', 'target', '_blank');
   });
-  */
+  
 
 });
