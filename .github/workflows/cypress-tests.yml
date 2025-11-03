@@ -1,40 +1,76 @@
-name: Rodar Testes Cypress
+# Arquivo: .github/workflows/cypress-tests.yml
+# (Este é o seu ARQUIVO EXISTENTE, MODIFICADO)
 
-# 1. Gatilho: Roda esta pipeline em todo push para a branch 'main'
+# --- (NOVO NOME) ---
+name: Rodar Testes Cypress e DAST
+
 on:
   push:
     branches: [ main ]
-  # Opcional: Permite rodar manualmente pela aba Actions do GitHub
   workflow_dispatch:
 
 jobs:
-  # Nome do job
+  # ----------------------------------------------------
+  # JOB 1: SEU TESTE CYPRESS (COM UMA ADIÇÃO)
+  # ----------------------------------------------------
   cypress-run:
     name: Teste dos Títulos dos Cards
-    # 2. Sistema Operacional: Roda em uma máquina virtual Linux (Ubuntu)
     runs-on: ubuntu-latest
     
     steps:
-      # 3. Baixa o seu código (exercicio.html, cypress/, etc.) para a máquina virtual
       - name: Fazer checkout do código
         uses: actions/checkout@v4
 
-      # 4. Configura o Node.js para podermos usar o 'npm'
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Usar uma versão LTS (Recomendada)
+          node-version: '18'
           
-      # 5. Instala as dependências do projeto (principalmente o Cypress)
-      # (Isso lê o seu 'package.json' e 'package-lock.json')
       - name: Instalar dependências
         run: npm install 
-        
-      # 6. Roda os testes do Cypress!
-      # (Usa a Action oficial do Cypress para facilitar tudo)
+      
+      # --- (NOVO PASSO ADICIONADO AQUI) ---
+      - name: SAST - Verificar dependências
+        # Verifica seu package-lock.json por vulnerabilidades
+        run: npm audit --audit-level=high
+      # ------------------------------------
+
       - name: Rodar os testes do Cypress
         uses: cypress-io/github-action@v6
         with:
-          # Informa ao Cypress para rodar apenas o arquivo de teste que criamos
-          spec: cypress/e2e/verificar-cards.spec.js
-          # Não precisamos de 'start' porque estamos testando um arquivo HTML estático
+          spec: cypress/e2e/verificar-cards.spec.js #
+          
+  # ----------------------------------------------------
+  # JOB 2: (COMPLETAMENTE NOVO) TESTE DAST (OWASP ZAP)
+  # ----------------------------------------------------
+  dast-scan:
+    name: Teste de Invasão DAST (ZAP)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Fazer checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Instalar dependências
+        run: npm install 
+
+      - name: 1. Ligar o servidor em background
+        # Usa o script 'start' do seu package.json
+        run: npm start & 
+
+      - name: 2. Esperar o servidor ligar
+        # Usa o 'wait-on' do seu package.json
+        run: npx wait-on http://localhost:8080 -t 15000
+
+      - name: 3. Rodar o DAST ZAP
+        uses: zaproxy/action-baseline@v0.10.0
+        with:
+          # O alvo é o seu site rodando
+          target: 'http://localhost:8080/exercicio.html'
+          # Não falha a pipeline por enquanto, apenas relata
+          fail_action: false
