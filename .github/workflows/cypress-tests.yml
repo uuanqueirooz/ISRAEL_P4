@@ -1,6 +1,3 @@
-# Arquivo: .github/workflows/cypress-tests.yml
-# (MODIFICADO: Jobs SAST e DAST são agora "placeholders" sem lógica)
-
 name: Rodar Testes (Cypress, SAST, DAST)
 
 on:
@@ -34,10 +31,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           spec: cypress/e2e/verificar-cards.spec.js
-          
-  # ----------------------------------------------------
-  # JOB 2: SAST (Placeholder - Apenas para aparecer)
-  # ----------------------------------------------------
   sast-scan:
     name: Teste de SAST (Placeholder)
     runs-on: ubuntu-latest
@@ -46,9 +39,6 @@ jobs:
       - name: Aviso de SAST
         run: echo "Este é o job SAST (Placeholder)."
 
-  # ----------------------------------------------------
-  # JOB 3: DAST (Placeholder - Apenas para aparecer)
-  # ----------------------------------------------------
   dast-scan:
     name: Teste de DAST (Placeholder)
     runs-on: ubuntu-latest
